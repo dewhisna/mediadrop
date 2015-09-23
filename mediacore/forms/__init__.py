@@ -12,6 +12,7 @@ from tw import forms
 from tw.api import JSLink, JSSource
 from tw.forms import FileField, TextArea as tw_TA, TextField as tw_TF
 from tw.forms.validators import Email
+from bleach import clean
 
 from mediacore.lib.i18n import N_, _
 from mediacore.lib.xhtml import clean_xhtml, line_break_xhtml
