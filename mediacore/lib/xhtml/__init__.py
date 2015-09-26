@@ -174,7 +174,20 @@ def strip_xhtml(string, _decode_entities=False):
     if not string:
         return u''
 
-    return clean(string)
+    # Strip all xhtml:
+    string = clean(string, strip=True, tags=[], attributes=[])
+
+    # Decode entities and strip hidden xhtml markup:
+    string = decode_entities(string)
+
+    # Note that decode_entities() call above takes care of xhtml
+    #   striping of hidden markup, and clean() below will re-encode
+    #   escapable characters if they got removed and we weren't
+    #   supposed to unescape them:
+    if not _decode_entities:
+        string = clean(string)
+
+    return string
 
 def line_break_xhtml(string):
     """Add a linebreak after block-level tags are closed.
